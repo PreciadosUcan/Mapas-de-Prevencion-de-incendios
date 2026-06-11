@@ -24,7 +24,7 @@ jobs:
           ls -R
       - name: Instalar dependencias
         run: |
-          pip install geopandas pandas shapely fiona pyproj
+          pip install geopandas pandas shapely numpy pyproj
 
       - name: Ejecutar pipeline
         run: python Mapas-de-Prevencion-de-incendios/Unificar_SHP_de_incendios.py
