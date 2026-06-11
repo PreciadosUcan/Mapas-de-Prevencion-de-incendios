@@ -7,7 +7,7 @@ on:
 
 jobs:
   run:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest 
     permissions:
       contents: write
 
@@ -17,14 +17,22 @@ jobs:
       - name: Setup Python  
         uses: actions/setup-python@v6
         with:
-          python-version: '3.14.3' 
+          python-version: '3.11'  
       - name: Debug path
         run: |
           pwd
           ls -R
-      - name: Instalar dependencias
+      - name: Install system dependencies (GDAL)
         run: |
-          pip install geopandas pandas shapely numpy pyproj
+          sudo apt-get update
+          sudo apt-get install -y gdal-bin libgdal-dev
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install numpy pandas shapely pyproj
+          pip install fiona
+          pip install geopandas
 
       - name: Ejecutar pipeline
         run: python Mapas-de-Prevencion-de-incendios/Unificar_SHP_de_incendios.py
