@@ -16,7 +16,10 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.14.3' 
-
+      - name: Debug path
+        run: |
+          pwd
+          ls -R
       - name: Instalar dependencias
         run: |
           pip install geopandas pandas shapely fiona pyproj
