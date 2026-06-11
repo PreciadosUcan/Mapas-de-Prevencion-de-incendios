@@ -1,15 +1,36 @@
-name: Ejecutar
+Name: Pipeline SHP diario
 
-on:  
+on:
   schedule:
-    - cron: '0 6 * * *'
-jobs: 
-  build: 
+    - cron: '0 6 * * *'  # 07:00 Madrid invierno / 08:00 verano
+  workflow_dispatch:
+
+jobs:
+  run:
     runs-on: windows-latest
 
-    steps: 
+    permissions:
+      contents: write
+
+    steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: '3.14.3' 
-      - run: python -/Roadmap/Unificar SHP  de incendios.py
+
+      - name: Instalar dependencias
+        run: |
+          pip install geopandas pandas shapely fiona pyproj
+
+      - name: Ejecutar pipeline
+        run: python Mapas-de-Prevencion-de-incendios/Unificar_SHP_de_incendios.py
+
+      - name: Commit resultados
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add data/
+          git diff --staged --quiet || git commit -m "Actualización diaria SHP"
+          git push
+      
