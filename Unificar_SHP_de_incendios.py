@@ -15,7 +15,18 @@ import geopandas as gpd
 from io import StringIO
 import os
 
+#  Paths base (repo)
+#BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR =Path(__file__).resolve().parent
+RAW_DIR = BASE_DIR / "data" / "raw"
+OUT_DIR = BASE_DIR / "data" / "processed"
 
+print(BASE_DIR)
+print(RAW_DIR)
+print(OUT_DIR)
+
+RAW_DIR.mkdir(parents=True, exist_ok=True)
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 print(">>> INICIO DEL SCRIPT")
 '''
@@ -40,7 +51,7 @@ url = (
 )
 
 gdf = gpd.read_file(url)
-gdf.to_file(r"C:\Users\Mirian Ojer\Desktop\Proyectos Programacion\Riesgo de incendio unificar mapas\vw_riesgometeoalertad0.shp")
+gdf.to_file(RAW_DIR+"/vw_riesgometeoalertad0.shp")
 url = (
     "https://inspire.navarra.es/services/riesgoIncendios/wfs/"
     "?service=WFS"
@@ -51,14 +62,14 @@ url = (
 )
 
 gdf = gpd.read_file(url)
-gdf.to_file(r"C:\Users\Mirian Ojer\Desktop\Proyectos Programacion\Riesgo de incendio unificar mapas\vw_riesgomunicipiod0.shp")
+gdf.to_file(RAW_DIR+"vw_riesgomunicipiod0.shp")
 
 
 #Este es el de Sina viso que aparece de [Sin aviso, Verde, Amarillo, Naranja, Rojo]
-Riesgo_de_incendio = gpd.read_file(r"C:\Users\Mirian Ojer\Desktop\Proyectos Programacion\Riesgo de incendio unificar mapas\vw_riesgometeoalertad0.shp")
+Riesgo_de_incendio = gpd.read_file(RAW_DIR+"vw_riesgometeoalertad0.shp")
 
 #Este es el de Sina viso que aparece de [Bajo, Moderado, Alto, Muy Alto, Extremo]
-Aviso_Temp_Extrema = gpd.read_file(r"C:\Users\Mirian Ojer\Desktop\Proyectos Programacion\Riesgo de incendio unificar mapas\vw_riesgomunicipiod0.shp")
+Aviso_Temp_Extrema = gpd.read_file(RAW_DIR+"vw_riesgomunicipiod0.shp")
 
 now = datetime.now()
 current_time = now.strftime("%H_%M_%S")
@@ -105,4 +116,7 @@ colores = {
 
 gdf_merge['color'] = gdf_merge['Labores'].map(colores)
 
-gdf_merge.to_file(r"C:\Users\Mirian Ojer\Desktop\Proyectos Programacion\Riesgo de incendio unificar mapas\AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
+gdf_merge.to_file(OUT_DIR +"/AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
+gdf_merge.to_file(OUT_DIR +"/incendios_unificados.geojson", driver="GeoJSON")
+
+print("Guardado:", output_file)
