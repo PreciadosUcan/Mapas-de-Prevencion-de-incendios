@@ -67,10 +67,10 @@ gdf.to_file(RAW_DIR / "vw_riesgomunicipiod0.shp")
 
 
 #Este es el de Sina viso que aparece de [Sin aviso, Verde, Amarillo, Naranja, Rojo]
-Riesgo_de_incendio = gpd.read_file(RAW_DIR+"vw_riesgometeoalertad0.shp")
+Riesgo_de_incendio = gpd.read_file(RAW_DIR / "vw_riesgometeoalertad0.shp")
 
 #Este es el de Sina viso que aparece de [Bajo, Moderado, Alto, Muy Alto, Extremo]
-Aviso_Temp_Extrema = gpd.read_file(RAW_DIR+"vw_riesgomunicipiod0.shp")
+Aviso_Temp_Extrema = gpd.read_file(RAW_DIR / "vw_riesgomunicipiod0.shp")
 
 now = datetime.now()
 current_time = now.strftime("%H_%M_%S")
@@ -117,6 +117,6 @@ colores = {
 
 gdf_merge['color'] = gdf_merge['Labores'].map(colores)
 
-gdf_merge.to_file(OUT_DIR +"/AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
-gdf_merge.to_file(OUT_DIR +"/incendios_unificados.geojson", driver="GeoJSON")
+gdf_merge.to_file(OUT_DIR  / "/AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
+gdf_merge.to_file(OUT_DIR  / "/incendios_unificados.geojson", driver="GeoJSON")
 
