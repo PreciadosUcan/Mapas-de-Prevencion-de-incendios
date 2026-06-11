@@ -26,12 +26,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gdal-bin libgdal-dev
-
+      - name: Set GDAL environment variables
+        run: |
+          echo "GDAL_CONFIG=$(which gdal-config)" >> $GITHUB_ENV
+          echo "GDAL_VERSION=$(gdal-config --version)" >> $GITHUB_ENV
       - name: Install Python dependencies
         run: |
           pip install --upgrade pip
           pip install numpy pandas shapely pyproj
-          pip install fiona
+          pip install fiona --no-build-isolation
           pip install geopandas
 
       - name: Ejecutar pipeline
