@@ -58,7 +58,7 @@ print("Descargando municipio...")
 
 for intento in range(3):
     try:
-        r = requests.get(url_municipio, timeout=(10, 30))
+        r = requests.get(url_municipio, timeout=(10, 40))
         r.raise_for_status()
 
         file_municipio.write_bytes(r.content)
@@ -86,7 +86,7 @@ url_meteo = (
 
 for intento in range(3):
     try:
-        r = requests.get(url_meteo, timeout=(10, 30))
+        r = requests.get(url_meteo, timeout=(10, 40))
         r.raise_for_status()
 
         file_meteo.write_bytes(r.content)
