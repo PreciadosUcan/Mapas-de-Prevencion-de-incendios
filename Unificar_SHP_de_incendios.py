@@ -23,7 +23,7 @@ BASE_DIR =Path(__file__).resolve().parent
 RAW_DIR = BASE_DIR / "data" / "raw"
 OUT_DIR = BASE_DIR / "data" / "processed"
 
-OUT_DIR = BASE_DIR 
+#OUT_DIR = BASE_DIR 
 
 print(BASE_DIR)
 print(RAW_DIR)
@@ -160,4 +160,4 @@ cols_keep = ["Municipio", "Labores","color","geometry"]
 gdf_merge = gdf_merge[cols_keep]
 #gdf_merge.to_file(OUT_DIR  / "AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
 gdf_merge.to_file(OUT_DIR  / "incendios_unificados.gpkg", driver="GPKG")
-gdf_merge.to_file(OUT_DIR  / "incendios_unificados.gpkg", driver="geojson")
+gdf_merge.to_file(OUT_DIR  / "incendios_unificados.geojson", driver="geojson")
