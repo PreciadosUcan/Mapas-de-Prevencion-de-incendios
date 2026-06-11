@@ -59,7 +59,7 @@ for intento in range(5):
         print(f"Intento {intento+1}/5 fallido: {e}")
         if intento == 4:
             raise
-        time.sleep(60)
+        time.sleep(5)
 #gdf = gpd.read_file(url)
 gdf.to_file(RAW_DIR / "vw_riesgometeoalertad0.shp")
 
@@ -80,7 +80,7 @@ for intento in range(5):
         print(f"Intento {intento+1}/5 fallido: {e}")
         if intento == 4:
             raise
-        time.sleep(60)
+        time.sleep(5)
 #gdf = gpd.read_file(url)
 gdf.to_file(RAW_DIR / "vw_riesgomunicipiod0.shp")
 
