@@ -37,7 +37,7 @@ jobs:
         run: |
           pip install --upgrade pip setuptools wheel
       
-          pip install numpy pandas shapely pyproj matplotlib
+          pip install numpy pandas shapely pyproj matplotlib requests
       
           # 🔥 CRÍTICO: forzar uso del GDAL del sistema
           pip install fiona --no-build-isolation --no-cache-dir --config-settings=--global-option=build_ext --config-settings=--global-option="-I/usr/include/gdal"
