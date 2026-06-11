@@ -15,6 +15,7 @@ import geopandas as gpd
 from io import StringIO
 import os
 from pathlib import Path
+import time
 
 #  Paths base (repo)
 #BASE_DIR = Path(__file__).resolve().parent
@@ -50,9 +51,18 @@ url = (
     "&typeNames=riesgoIncendios:vw_riesgomunicipiod0"
     "&outputFormat=application/json"
 )
-
-gdf = gpd.read_file(url)
+for intento in range(5):
+    try:
+        gdf = gpd.read_file(url)
+        break
+    except Exception as e:
+        print(f"Intento {intento+1}/5 fallido: {e}")
+        if intento == 4:
+            raise
+        time.sleep(60)
+#gdf = gpd.read_file(url)
 gdf.to_file(RAW_DIR / "vw_riesgometeoalertad0.shp")
+
 url = (
     "https://inspire.navarra.es/services/riesgoIncendios/wfs/"
     "?service=WFS"
@@ -62,7 +72,16 @@ url = (
     "&outputFormat=application/json"
 )
 
-gdf = gpd.read_file(url)
+for intento in range(5):
+    try:
+        gdf = gpd.read_file(url)
+        break
+    except Exception as e:
+        print(f"Intento {intento+1}/5 fallido: {e}")
+        if intento == 4:
+            raise
+        time.sleep(60)
+#gdf = gpd.read_file(url)
 gdf.to_file(RAW_DIR / "vw_riesgomunicipiod0.shp")
 
 
