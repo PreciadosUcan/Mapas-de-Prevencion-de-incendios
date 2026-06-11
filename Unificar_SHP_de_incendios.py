@@ -117,6 +117,6 @@ colores = {
 
 gdf_merge['color'] = gdf_merge['Labores'].map(colores)
 
-gdf_merge.to_file(OUT_DIR  / "AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
-gdf_merge.to_file(OUT_DIR  / "incendios_unificados.geojson", driver="GeoJSON")
+#gdf_merge.to_file(OUT_DIR  / "AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
+gdf_merge.to_file(OUT_DIR  / "incendios_unificados.gpkg", driver="GPKG")
 
