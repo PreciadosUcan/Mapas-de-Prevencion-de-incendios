@@ -14,6 +14,7 @@ import requests
 import geopandas as gpd
 from io import StringIO
 import os
+from pathlib import Path
 
 #  Paths base (repo)
 #BASE_DIR = Path(__file__).resolve().parent
@@ -51,7 +52,7 @@ url = (
 )
 
 gdf = gpd.read_file(url)
-gdf.to_file(RAW_DIR+"/vw_riesgometeoalertad0.shp")
+gdf.to_file(RAW_DIR / "vw_riesgometeoalertad0.shp")
 url = (
     "https://inspire.navarra.es/services/riesgoIncendios/wfs/"
     "?service=WFS"
@@ -62,7 +63,7 @@ url = (
 )
 
 gdf = gpd.read_file(url)
-gdf.to_file(RAW_DIR+"vw_riesgomunicipiod0.shp")
+gdf.to_file(RAW_DIR / "vw_riesgomunicipiod0.shp")
 
 
 #Este es el de Sina viso que aparece de [Sin aviso, Verde, Amarillo, Naranja, Rojo]
@@ -119,4 +120,3 @@ gdf_merge['color'] = gdf_merge['Labores'].map(colores)
 gdf_merge.to_file(OUT_DIR +"/AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
 gdf_merge.to_file(OUT_DIR +"/incendios_unificados.geojson", driver="GeoJSON")
 
-print("Guardado:", output_file)
