@@ -40,10 +40,11 @@ else:
     # Si está en .py normal
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 '''
-
+file_meteo = RAW_DIR / "vw_riesgometeoalertad0.geojson"
+file_municipio = RAW_DIR / "vw_riesgomunicipiod0.geojson"
 # basandome en https://www.lexnavarra.navarra.es/detalle.asp?r=37630  Capitulo 2 Articulo 6
 #Descarga de capas
-url = (
+url_municipio = (
     "https://inspire.navarra.es/services/riesgoIncendios/wfs/"
     "?service=WFS"
     "&version=2.0.0"
@@ -51,19 +52,28 @@ url = (
     "&typeNames=riesgoIncendios:vw_riesgomunicipiod0"
     "&outputFormat=application/json"
 )
-for intento in range(5):
-    try:
-        gdf = gpd.read_file(url)
-        break
-    except Exception as e:
-        print(f"Intento {intento+1}/5 fallido: {e}")
-        if intento == 4:
-            raise
-        time.sleep(5)
-#gdf = gpd.read_file(url)
-gdf.to_file(RAW_DIR / "vw_riesgometeoalertad0.shp")
+print("Descargando municipio...")
 
-url = (
+for intento in range(3):
+    try:
+        r = requests.get(url_municipio, timeout=(10, 120))
+        r.raise_for_status()
+
+        file_municipio.write_bytes(r.content)
+
+        print("Municipio descargado OK")
+        break
+
+    except Exception as e:
+        print(f"Error intento {intento+1}: {e}")
+        time.sleep(10)
+
+else:
+    raise Exception("No se pudo descargar municipio")
+#gdf = gpd.read_file(url)
+#gdf.to_file(RAW_DIR / "vw_riesgometeoalertad0.shp")
+
+url_meteo = (
     "https://inspire.navarra.es/services/riesgoIncendios/wfs/"
     "?service=WFS"
     "&version=2.0.0"
@@ -72,24 +82,33 @@ url = (
     "&outputFormat=application/json"
 )
 
-for intento in range(5):
+for intento in range(3):
     try:
-        gdf = gpd.read_file(url)
-        break
-    except Exception as e:
-        print(f"Intento {intento+1}/5 fallido: {e}")
-        if intento == 4:
-            raise
-        time.sleep(5)
-#gdf = gpd.read_file(url)
-gdf.to_file(RAW_DIR / "vw_riesgomunicipiod0.shp")
+        r = requests.get(url_meteo, timeout=(10, 120))
+        r.raise_for_status()
 
+        file_meteo.write_bytes(r.content)
+
+        print("Meteo descargado OK")
+        break
+
+    except Exception as e:
+        print(f"Error intento {intento+1}: {e}")
+        time.sleep(10)
+
+else:
+    raise Exception("No se pudo descargar meteo")
+#gdf = gpd.read_file(url)
+#gdf.to_file(RAW_DIR / "vw_riesgomunicipiod0.shp")
+
+gdf1 = gpd.read_file(file_meteo)
+gdf2 = gpd.read_file(file_municipio)
 
 #Este es el de Sina viso que aparece de [Sin aviso, Verde, Amarillo, Naranja, Rojo]
-Riesgo_de_incendio = gpd.read_file(RAW_DIR / "vw_riesgometeoalertad0.shp")
+Riesgo_de_incendio = gpd.read_file(RAW_DIR / "vw_riesgometeoalertad0.geojson")
 
 #Este es el de Sina viso que aparece de [Bajo, Moderado, Alto, Muy Alto, Extremo]
-Aviso_Temp_Extrema = gpd.read_file(RAW_DIR / "vw_riesgomunicipiod0.shp")
+Aviso_Temp_Extrema = gpd.read_file(RAW_DIR / "vw_riesgomunicipiod0.geojson")
 
 now = datetime.now()
 current_time = now.strftime("%H_%M_%S")
