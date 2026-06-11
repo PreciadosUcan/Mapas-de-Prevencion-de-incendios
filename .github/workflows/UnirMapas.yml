@@ -45,7 +45,7 @@ jobs:
           pip install geopandas
 
       - name: Ejecutar pipeline
-        run: python Mapas-de-Prevencion-de-incendios/Unificar_SHP_de_incendios.py
+        run: python Unificar_SHP_de_incendios.py
 
       - name: Commit resultados
         run: |
