@@ -127,8 +127,8 @@ gdf_merge = Riesgo_de_incendio.merge(
 gdf_merge['Labores'] = None
 
 #Generar casos aleatorios
-#gdf_merge['Alerta_x'] = np.random.choice(['Sin aviso', 'Verde', 'Amarillo', 'Naranja', 'Rojo'],len(gdf_merge))
-#gdf_merge['Alerta_y'] = np.random.choice(['Bajo', 'Moderado', 'Alto', 'Muy Alto', 'Extremo'],len(gdf_merge))
+gdf_merge['Alerta_x'] = np.random.choice(['Sin aviso', 'Verde', 'Amarillo', 'Naranja', 'Rojo'],len(gdf_merge))
+gdf_merge['Alerta_y'] = np.random.choice(['Bajo', 'Moderado', 'Alto', 'Muy Alto', 'Extremo'],len(gdf_merge))
 
 for i in range(len(gdf_merge)):
     if gdf_merge.loc[i, 'Alerta_y'] in ['Bajo', 'Moderado', 'Alto']:
