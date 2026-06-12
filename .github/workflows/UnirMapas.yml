@@ -3,6 +3,7 @@ name: Pipeline
 on:
   schedule:
     - cron: '0 6 * * *'  # 07:00 Madrid invierno / 08:00 verano
+   # - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
