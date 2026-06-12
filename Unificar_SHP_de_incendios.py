@@ -79,7 +79,7 @@ url_meteo = (
     "?service=WFS"
     "&version=2.0.0"
     "&request=GetFeature"
-    "&typeNames=riesgoIncendios:vw_riesgometeoalertad0lg"
+    "&typeNames=riesgoIncendios:vw_riesgometeoalertad0"
     "&outputFormat=application/json"
 )
 
