@@ -16,31 +16,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // cargar geojson generado
-const colores = {
-'Permitidas': 'green',
-'Permitidas condicional': 'yellow',
-'Permitidas condicional estricta': 'orange',
-'Prohibidas completamente': 'red'
-};
 fetch('https://raw.githubusercontent.com/PreciadosUcan/Mapas-de-Prevencion-de-incendios/main/data/processed/incendios_wgs84.geojson')
   .then(r => r.json())
   .then(data => {
-
-    L.geoJSON(data, {
-      style: function(feature) {
-        return {
-          color: 'black', // borde
-          weight: 0.5,
-          fillColor: colores[feature.properties.Labores] || 'gray',
-          fillOpacity: 0.7
-        };
-      },
-      onEachFeature: function(feature, layer) {
-        layer.bindPopup(
-          `<b>Municipio:</b> ${feature.properties.Municipio}<br>
-           <b>Labores:</b> ${feature.properties.Labores}`
-        );
-      }
     }).addTo(map);
   }); 
 </script>
