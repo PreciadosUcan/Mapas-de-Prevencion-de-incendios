@@ -55,7 +55,7 @@ url_municipio = (
     "&outputFormat=application/json"
 )
 print("Descargando municipio...")
-
+print(url_municipio)
 for intento in range(3):
     try:
         r = requests.get(url_municipio, timeout=(10, 40))
@@ -69,7 +69,6 @@ for intento in range(3):
     except Exception as e:
         print(f"Error intento {intento+1}: {e}")
         time.sleep(10)
-
 else:
     raise Exception("No se pudo descargar municipio")
 #gdf = gpd.read_file(url)
