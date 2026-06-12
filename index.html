@@ -43,7 +43,8 @@ fetch('https://raw.githubusercontent.com/PreciadosUcan/Mapas-de-Prevencion-de-in
       onEachFeature: function(feature, layer) {
         layer.bindPopup(
           `<b>Municipio:</b> ${feature.properties.Municipio}<br>
-           <b>Labores:</b> ${feature.properties.Labores}`
+           <b>Labores:</b> ${feature.properties.Labores}
+           <b>Condiciones:</b> <a href="https://www.navarra.es/es/prevencion-de-incendios-forestales" target="_blank">ver condiciones</a>``
         );
       }
 
