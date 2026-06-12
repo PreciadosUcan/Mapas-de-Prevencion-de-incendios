@@ -159,5 +159,5 @@ cols_keep = ["Municipio", "Labores","color","geometry"]
 gdf_merge = gdf_merge[cols_keep]
 #gdf_merge.to_file(OUT_DIR  / "AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
 gdf_merge.to_file(OUT_DIR  / "incendios_unificados.gpkg", driver="GPKG")
-gdf_merge["geometry"] = gdf_merge["geometry"].simplify(0.001)
+gdf_merge["geometry"] = gdf_merge["geometry"].simplify(0.01)
 gdf_merge.to_file(OUT_DIR  / "incendios_unificados.geojson", driver="geojson")
