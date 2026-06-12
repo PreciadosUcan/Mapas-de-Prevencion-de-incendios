@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Incendios</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-</head>
-<body>
-<div id="map" style="height: 100vh;"></div>
-
 <script>
 var map = L.map('map').setView([40, -3], 6);
 
@@ -15,14 +5,35 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: 'OSM'
 }).addTo(map);
 
-// cargar geojson generado
-fetch('https://raw.githubusercontent.com/PreciadosUcan/Mapas-de-Prevencion-de-incendios/main/data/processed/incendios_wgs84.geojson')
+// Diccionario de colores
+const colores = {
+  'Permitidas': 'green',
+  'Permitidas condicional': 'yellow',
+  'Permitidas condicional estricta': 'orange',
+  'Prohibidas completamente': 'red'
+};
+// Estilo dinámico
+function style(feature) {
+  return {
+    color: colores[feature.properties.Labores] || 'gray',
+    weight: 1,
+    fillOpacity: 0.6
+  };
+}
+
+// Cargar GeoJSON
+fetch('incendios_unificados.geojson')
   .then(r => r.json())
   .then(data => {
-    L.geoJSON(data).addTo(map);
+    L.geoJSON(data, {
+      style: style,
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup(
+          `<b>Municipio:</b> ${feature.properties.Municipio}<br>
+           <b>Labores:</b> ${feature.properties.Labores}`
+        );
+      }
+    }).addTo(map);
   });
 </script>
-
-</body>
-</html>
 
