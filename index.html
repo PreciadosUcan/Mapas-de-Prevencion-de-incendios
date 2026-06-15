@@ -11,7 +11,7 @@
 
 <script>
 
-var map = L.map('map').setView([40, -3], 6);
+var map = L.map('map').setView([42.82, -1.64], 5);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: 'OSM'
@@ -42,7 +42,7 @@ fetch('https://raw.githubusercontent.com/PreciadosUcan/Mapas-de-Prevencion-de-in
 
       onEachFeature: function(feature, layer) {
         layer.bindPopup(
-            `<div style="font-size:16px;">
+            `<div style="font-size:32px;">
                 <b>Municipio:</b> ${feature.properties.Municipio}<br>
                 <b>Labores:</b> ${feature.properties.Labores}<br>
                 <b>Condiciones:</b> 
