@@ -30,7 +30,7 @@ fetch('https://raw.githubusercontent.com/PreciadosUcan/Mapas-de-Prevencion-de-in
   .then(r => r.json())
   .then(data => {
 
-    const capa L.geoJSON(data, {
+      L.geoJSON(data, {
       style: function(feature) {
         return {
           color: 'black',
@@ -50,7 +50,7 @@ fetch('https://raw.githubusercontent.com/PreciadosUcan/Mapas-de-Prevencion-de-in
       }
 
     }).addTo(map);
-    map.fitBounds(capa.getBounds());
+
   });
 
 </script>
