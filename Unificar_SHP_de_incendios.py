@@ -155,7 +155,8 @@ colores = {
 }
 
 gdf_merge['color'] = gdf_merge['Labores'].map(colores)
-cols_keep = ["Municipio", "Labores","color","geometry"]
+gdf["Fecha"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+cols_keep = ["Municipio", "Labores","color","geometry","Fecha"]
 gdf_merge = gdf_merge[cols_keep]
 #gdf_merge.to_file(OUT_DIR  / "AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
 #gdf_merge.to_file(OUT_DIR  / "incendios_unificados.gpkg", driver="GPKG")
