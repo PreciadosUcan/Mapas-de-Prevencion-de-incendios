@@ -16,7 +16,7 @@ from io import StringIO
 import os
 from pathlib import Path
 import time
-
+import ZoneInfo
 #  Paths base (repo)
 #BASE_DIR = Path(__file__).resolve().parent
 BASE_DIR =Path(__file__).resolve().parent
@@ -155,7 +155,10 @@ colores = {
 }
 
 gdf_merge['color'] = gdf_merge['Labores'].map(colores)
-gdf_merge["Fecha"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+ahora = datetime.now(ZoneInfo("Europe/Madrid"))
+gdf_merge["Fecha"] = ahora.strftime("%d/%m/%Y %H:%M")
+
 cols_keep = ["Municipio", "Labores","color","geometry","Fecha"]
 gdf_merge = gdf_merge[cols_keep]
 #gdf_merge.to_file(OUT_DIR  / "AA_Mapa_Incendio_Unificado.shp", driver="ESRI Shapefile")
