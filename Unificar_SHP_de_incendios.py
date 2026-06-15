@@ -51,7 +51,7 @@ url_municipio = (
     "?service=WFS"
     "&version=2.0.0"
     "&request=GetFeature"
-    "&typeNames=riesgoIncendios:vw_riesgomunicipiod0"
+    "&typeNames=riesgoIncendios:vw_riesgomunicipiod1"
     "&outputFormat=application/json"
 )
 print("Descargando municipio...")
@@ -79,7 +79,7 @@ url_meteo = (
     "?service=WFS"
     "&version=2.0.0"
     "&request=GetFeature"
-    "&typeNames=riesgoIncendios:vw_riesgometeoalertad0"
+    "&typeNames=riesgoIncendios:vw_riesgometeoalertad1"
     "&outputFormat=application/json"
 )
 
