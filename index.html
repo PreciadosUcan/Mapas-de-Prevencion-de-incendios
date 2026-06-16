@@ -30,6 +30,18 @@
   border: 1px solid #000;
   vertical-align: middle;
 }
+.last-update {
+  position: absolute;
+  top: 20px;
+  left: 20px;   /* 👈 aquí está el cambio */
+  z-index: 1001;
+  background: white;
+  padding: 8px 12px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
 </style>
 </head>
  
@@ -39,7 +51,7 @@
 
 <!-- 👇 AQUÍ VA LA LEYENDA -->
 <div class="legend">
-  <h4>Labores agricolas</h4>
+  <h4>Labores agrícolas</h4>
   <div><span class="box" style="background: green;"></span> Permitidas</div>
   <div><span class="box" style="background: yellow;"></span> Permitidas condicional</div>
   <div><span class="box" style="background: orange;"></span> Permitidas condicional estricta</div>
@@ -65,6 +77,15 @@ const colores = {
 fetch('https://raw.githubusercontent.com/PreciadosUcan/Mapas-de-Prevencion-de-incendios/main/data/processed/incendios_wgs84.geojson')
   .then(r => r.json())
   .then(data => {
+    let fechas = data.features
+      .map(f => f.properties.Fecha)
+      .filter(Boolean);
+  
+    // si están en formato string comparable, cogemos la última
+    let ultima = data.features[0].properties.Fecha;
+  
+    document.getElementById("lastUpdate").innerHTML =
+      "Última actualización: " + ultima;
 
     L.geoJSON(data, {
       style: function(feature) {
