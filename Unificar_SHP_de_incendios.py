@@ -16,7 +16,7 @@ from io import StringIO
 import os
 from pathlib import Path
 import time
-import ZoneInfo
+
 #  Paths base (repo)
 #BASE_DIR = Path(__file__).resolve().parent
 BASE_DIR =Path(__file__).resolve().parent
