@@ -156,7 +156,7 @@ colores = {
 
 gdf_merge['color'] = gdf_merge['Labores'].map(colores)
 
-ahora = datetime.now(ZoneInfo("Europe/Madrid"))
+ahora = datetime.now()
 gdf_merge["Fecha"] = ahora.strftime("%d/%m/%Y %H:%M")
 
 cols_keep = ["Municipio", "Labores","color","geometry","Fecha"]
