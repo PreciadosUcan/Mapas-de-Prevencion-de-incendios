@@ -176,7 +176,7 @@ var overlayMaps = {
   "Restricciones provisionales Pasado mañana": capa2
 };
 
-L.control.layers(null, overlayMaps, {
+L.control.layers(overlayMaps, null, {
   collapsed: false,
   position: 'topleft'   // 👈 AQUÍ
 }).addTo(map);
